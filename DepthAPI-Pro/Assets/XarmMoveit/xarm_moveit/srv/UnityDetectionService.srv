@@ -1,0 +1,12 @@
+float64[] colorK
+sensor_msgs/Image rgb
+sensor_msgs/Image depth
+geometry_msgs/Pose pose
+string prompt
+int32 detect_mode
+int32[] bbox
+int32[] points
+---
+float64[] confidence
+geometry_msgs/Pose[] poses
+

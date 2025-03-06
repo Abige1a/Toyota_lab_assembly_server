@@ -1,0 +1,10 @@
+int32 mode
+float64 gripper_status
+geometry_msgs/Pose[] target_pose
+float64[6] velocity_control
+float64[6] configuration
+moveit_msgs/RobotTrajectory[] original_trajectories
+---
+geometry_msgs/Pose current_pose
+moveit_msgs/RobotTrajectory[] trajectories
+float64 gripper_status

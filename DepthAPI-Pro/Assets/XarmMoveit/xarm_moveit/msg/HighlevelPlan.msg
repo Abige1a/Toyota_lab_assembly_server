@@ -1,0 +1,4 @@
+string action
+string object_name
+geometry_msgs/Pose object_location
+geometry_msgs/Pose place_location

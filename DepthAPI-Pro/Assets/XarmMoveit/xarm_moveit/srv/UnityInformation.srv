@@ -1,0 +1,18 @@
+int32[] mode
+int32 object_index
+int32 phase_index
+string system_content
+string user_content
+UnityImage prompt_image
+geometry_msgs/Pose[] user_pose
+int32[] points
+int32[] boxes
+int32 user_action_verify
+int32 user_verify_verify
+---
+int32 mode
+string question_text
+HighlevelPlan[] highlevel_plan
+geometry_msgs/Pose[] server_poses
+int32 server_verify
+
