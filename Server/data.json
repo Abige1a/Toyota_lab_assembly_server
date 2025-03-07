@@ -1,0 +1,177 @@
+{
+    "tasks": [
+      {
+        "id": 1,
+        "name": "Vehicle Assembly Process",
+        "stations": [
+          {
+            "id": 1,
+            "name": "Chassis Assembly",
+            "pages": [
+              {
+                "id": 1,
+                "layout_template_index": 0,
+                "texts": [
+                  {
+                    "id": 1,
+                    "content": "Ensure that all chassis components are available and in good condition.",
+                    "order": 0
+                  },
+                  {
+                    "id": 2,
+                    "content": "Verify alignment of the base frame before proceeding with assembly.",
+                    "order": 1
+                  }
+                ],
+                "images": []
+              },
+              {
+                "id": 2,
+                "layout_template_index": 0,
+                "texts": [
+                  {
+                    "id": 1,
+                    "content": "Install the engine mount securely following the specified torque settings.",
+                    "order": 0
+                  },
+                  {
+                    "id": 2,
+                    "content": "Connect the wiring harness carefully to ensure proper insulation.",
+                    "order": 1
+                  }
+                ],
+                "images": []
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "name": "Body Installation",
+            "pages": [
+              {
+                "id": 1,
+                "layout_template_index": 0,
+                "texts": [
+                  {
+                    "id": 1,
+                    "content": "Position the door panels accurately using the alignment fixtures.",
+                    "order": 0
+                  },
+                  {
+                    "id": 2,
+                    "content": "Secure the panels with the designated fasteners to prevent rattling.",
+                    "order": 1
+                  }
+                ],
+                "images": []
+              },
+              {
+                "id": 2,
+                "layout_template_index": 0,
+                "texts": [
+                  {
+                    "id": 1,
+                    "content": "Check all seals for proper fit to prevent water ingress during operations.",
+                    "order": 0
+                  },
+                  {
+                    "id": 2,
+                    "content": "Perform a thorough quality inspection of paint and finish for any defects.",
+                    "order": 1
+                  }
+                ],
+                "images": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Quality Control and Testing",
+        "stations": [
+          {
+            "id": 1,
+            "name": "Functional Testing",
+            "pages": [
+              {
+                "id": 1,
+                "layout_template_index": 0,
+                "texts": [
+                  {
+                    "id": 1,
+                    "content": "Measure engine output under standardized conditions and record the data.",
+                    "order": 0
+                  },
+                  {
+                    "id": 2,
+                    "content": "Note any deviations from expected performance levels and report them.",
+                    "order": 1
+                  }
+                ],
+                "images": []
+              },
+              {
+                "id": 2,
+                "layout_template_index": 0,
+                "texts": [
+                  {
+                    "id": 1,
+                    "content": "Test the operation of all airbags and seatbelt sensors in a controlled environment.",
+                    "order": 0
+                  },
+                  {
+                    "id": 2,
+                    "content": "Verify that emergency braking systems respond within the required time frame.",
+                    "order": 1
+                  }
+                ],
+                "images": []
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "name": "Final Inspection",
+            "pages": [
+              {
+                "id": 1,
+                "layout_template_index": 0,
+                "texts": [
+                  {
+                    "id": 1,
+                    "content": "Inspect the vehicle exterior for dents, scratches, or paint inconsistencies.",
+                    "order": 0
+                  },
+                  {
+                    "id": 2,
+                    "content": "Verify that the interior fittings meet quality and safety standards.",
+                    "order": 1
+                  }
+                ],
+                "images": []
+              },
+              {
+                "id": 2,
+                "layout_template_index": 0,
+                "texts": [
+                  {
+                    "id": 1,
+                    "content": "Complete all necessary inspection checklists and accurately log the results.",
+                    "order": 0
+                  },
+                  {
+                    "id": 2,
+                    "content": "Approve the vehicle for delivery if all quality criteria are satisfactorily met.",
+                    "order": 1
+                  }
+                ],
+                "images": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  
