@@ -177,12 +177,16 @@ def create_page(task_id, station_id):
         return jsonify({"error": "Station not found"}), 404
     data = request.get_json() or {}
     layout_template_index = data.get("layout_template_index", 0)
+    # Use provided texts and images arrays if available; otherwise, default to empty lists.
+    texts = data.get("texts", [])
+    images = data.get("images", [])
+    
     new_page_id = get_new_page_id_for_station(station)
     new_page = {
         "id": new_page_id,
         "layout_template_index": layout_template_index,
-        "texts": [],
-        "images": []
+        "texts": texts,
+        "images": images
     }
     station.setdefault("pages", []).append(new_page)
     save_data()
@@ -204,7 +208,7 @@ def delete_page(task_id, station_id, page_id):
     save_data()
     return jsonify({"message": "Page deleted successfully"})
 
-# Update a Page's layout_template_index
+# Update a Page
 @app.route('/tasks/<int:task_id>/stations/<int:station_id>/pages/<int:page_id>', methods=['PUT'])
 def update_page(task_id, station_id, page_id):
     task = find_task(task_id)
@@ -216,9 +220,21 @@ def update_page(task_id, station_id, page_id):
     page = find_page_in_station(station, page_id)
     if not page:
         return jsonify({"error": "Page not found"}), 404
+
     data = request.get_json()
+
+    # Update layout_template_index if provided.
     if "layout_template_index" in data:
         page["layout_template_index"] = data["layout_template_index"]
+
+    # Update texts if provided.
+    if "texts" in data:
+        page["texts"] = data["texts"]
+
+    # Update images if provided.
+    if "images" in data:
+        page["images"] = data["images"]
+
     save_data()
     return jsonify({"message": "Page updated successfully"})
 
