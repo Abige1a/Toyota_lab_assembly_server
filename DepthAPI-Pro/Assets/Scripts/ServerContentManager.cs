@@ -217,7 +217,7 @@ public class ServerContentManager : MonoBehaviour
         pagePanel.SetActive(false);
         pageEditor.SetActive(false);
         VisualizeStations(selectedTaskID);
-        stationPanelTitle.text = "Task " + selectedTaskID + ": " + FindTaskById(selectedTaskID).name;
+        stationPanelTitle.text = "Production " + selectedTaskID + ": " + FindTaskById(selectedTaskID).name;
     }
 
     public void ShowPagePanel()
@@ -228,7 +228,7 @@ public class ServerContentManager : MonoBehaviour
         pagePanel.SetActive(true);
         pageEditor.SetActive(false);
         VisualizePages(selectedTaskID, selectedStationID);
-        pagePanelTitle.text = "Task " + selectedTaskID + ": " + FindTaskById(selectedTaskID).name + " Station " + selectedStationID;
+        pagePanelTitle.text = "Production " + selectedTaskID + ": " + FindTaskById(selectedTaskID).name + " Station " + selectedStationID;
     }
 
     public void ShowPageEditor()
@@ -239,7 +239,7 @@ public class ServerContentManager : MonoBehaviour
         pagePanel.SetActive(false);
         pageEditor.SetActive(true);
         VisualizePageDetail(selectedTaskID, selectedStationID, selectedPageID);
-        pageEditorTitle.text = "Task " + selectedTaskID + ": " + FindTaskById(selectedTaskID).name + " Station " + selectedStationID;
+        pageEditorTitle.text = "Production " + selectedTaskID + ": " + FindTaskById(selectedTaskID).name + " Station " + selectedStationID;
     }
 
     public TaskData FindTaskById(int taskId)

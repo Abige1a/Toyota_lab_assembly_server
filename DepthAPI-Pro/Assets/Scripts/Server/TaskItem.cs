@@ -12,7 +12,7 @@ public class TaskItem : MonoBehaviour
     {
         taskID = id;
         taskName = name;
-        GetComponentInChildren<Text>().text = "Task " + id + "\n" + name;
+        GetComponentInChildren<Text>().text = "Production " + id + "\n" + name;
         GetComponent<Button>().onClick.AddListener(SelectTask);
     }
 
