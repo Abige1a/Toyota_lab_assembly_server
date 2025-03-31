@@ -1,5 +1,6 @@
 import os
 import json
+import copy
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
@@ -89,6 +90,38 @@ def get_all_tasks():
     return jsonify(db)
 
 # ---------------------- Task Endpoints ------------------------
+
+# This endpoint copies an existing task and assigns it a new name.
+@app.route('/tasks/<int:task_id>/copy', methods=['POST'])
+def copy_task(task_id):
+    # Find the existing task.
+    original_task = find_task(task_id)
+    if not original_task:
+        return jsonify({"error": "Task not found"}), 404
+
+    data = request.get_json()
+    if not data or "name" not in data:
+        return jsonify({"error": "New task name is required"}), 400
+
+    new_name = data["name"]
+
+    # Create a deep copy of the original task.
+    new_task = copy.deepcopy(original_task)
+
+    # Assign a new globally unique task ID.
+    new_task_id = get_new_task_id()
+    new_task["id"] = new_task_id
+
+    # Update the task name.
+    new_task["name"] = new_name
+
+    # Optionally, if you want to reinitialize nested IDs (e.g., station IDs start from 1 in a new task)
+    # you could iterate over new_task["stations"] and reassign their IDs, then for each station reassign pages, etc.
+    # For now, we'll keep the copied nested IDs since each task's nested IDs are only unique within that task.
+
+    db["tasks"].append(new_task)
+    save_data()
+    return jsonify({"message": "Task copied successfully", "new_task_id": new_task_id}), 201
 
 @app.route('/tasks', methods=['POST'])
 def create_task():

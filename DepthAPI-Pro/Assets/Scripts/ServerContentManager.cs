@@ -29,8 +29,11 @@ public class ServerContentManager : MonoBehaviour
     public GameObject newTaskPanel;
     public InputField taskNameInputField;
     public GameObject stationPanel;
+    public GameObject copyTaskPanel;
+    public InputField copyTaskNameInputField;
     public GameObject pagePanel;
     public GameObject pageEditor;
+    public GameObject pageSaveSuccessPanel;
 
     public Text stationPanelTitle;
     public Text pagePanelTitle;
@@ -198,6 +201,7 @@ public class ServerContentManager : MonoBehaviour
         taskPanel.SetActive(true);
         newTaskPanel.SetActive(false);
         stationPanel.SetActive(false);
+        copyTaskPanel.SetActive(false);
         pagePanel.SetActive(false);
         pageEditor.SetActive(false);
         VisualizeTasks();
@@ -214,10 +218,18 @@ public class ServerContentManager : MonoBehaviour
         taskPanel.SetActive(false);
         newTaskPanel.SetActive(false);
         stationPanel.SetActive(true);
+        copyTaskPanel.SetActive(false);
         pagePanel.SetActive(false);
         pageEditor.SetActive(false);
+        pageSaveSuccessPanel.SetActive(false);
         VisualizeStations(selectedTaskID);
         stationPanelTitle.text = "Production " + selectedTaskID + ": " + FindTaskById(selectedTaskID).name;
+    }
+
+    public void ShowCopyTaskPanel()
+    {
+        copyTaskPanel.SetActive(true);
+        copyTaskNameInputField.text = "";
     }
 
     public void ShowPagePanel()
@@ -225,8 +237,10 @@ public class ServerContentManager : MonoBehaviour
         taskPanel.SetActive(false);
         newTaskPanel.SetActive(false);
         stationPanel.SetActive(false);
+        copyTaskPanel.SetActive(false);
         pagePanel.SetActive(true);
         pageEditor.SetActive(false);
+        pageSaveSuccessPanel.SetActive(false);
         VisualizePages(selectedTaskID, selectedStationID);
         pagePanelTitle.text = "Production " + selectedTaskID + ": " + FindTaskById(selectedTaskID).name + " Station " + selectedStationID;
     }
@@ -236,10 +250,17 @@ public class ServerContentManager : MonoBehaviour
         taskPanel.SetActive(false);
         newTaskPanel.SetActive(false);
         stationPanel.SetActive(false);
+        copyTaskPanel.SetActive(false);
         pagePanel.SetActive(false);
         pageEditor.SetActive(true);
+        pageSaveSuccessPanel.SetActive(false);
         VisualizePageDetail(selectedTaskID, selectedStationID, selectedPageID);
         pageEditorTitle.text = "Production " + selectedTaskID + ": " + FindTaskById(selectedTaskID).name + " Station " + selectedStationID;
+    }
+
+    public void ShowPageSaveSuccessPanel()
+    {
+        pageSaveSuccessPanel.SetActive(true);
     }
 
     public TaskData FindTaskById(int taskId)
@@ -808,8 +829,44 @@ public class ServerContentManager : MonoBehaviour
         {
             string responseText = (request.downloadHandler != null) ? request.downloadHandler.text : "No response";
             Debug.Log("Page saved successfully: " + responseText);
-            // Optionally, refresh the pages view.
-            FetchAllTasks(VisualizeOption.Pages);
+            //FetchAllTasks(VisualizeOption.Pages);
+            ShowPageSaveSuccessPanel();
         }
     }
+
+    public void CopyTask()
+    {
+        if(copyTaskNameInputField.text == "")
+        {
+            return;
+        }
+        StartCoroutine(CopyTaskCoroutine(selectedTaskID, copyTaskNameInputField.text));
+    }
+
+    private IEnumerator CopyTaskCoroutine(int taskId, string newTaskName)
+    {
+        // Build the URL using the provided taskId.
+        string url = baseUrl + "/tasks/" + taskId + "/copy";
+        // Build JSON payload with the new task name.
+        string jsonData = "{\"name\":\"" + newTaskName + "\"}";
+
+        UnityWebRequest request = new UnityWebRequest(url, "POST");
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError("Error copying task: " + request.error);
+        }
+        else
+        {
+            Debug.Log("Task copied successfully: " + request.downloadHandler.text);
+            FetchAllTasks(VisualizeOption.Tasks);
+        }
+    }
+
 }
