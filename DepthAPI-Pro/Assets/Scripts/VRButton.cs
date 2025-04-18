@@ -9,6 +9,8 @@ public class VRButton : MonoBehaviour
     public UnityEvent hanging_events;
     public UnityEvent not_hanging_events;
 
+    public bool ignoreInvokeFlag = false;
+
     private float minInvokeDelay = 1.0f;
     private bool canInvoke = true;           // 是否允许触发事件
     private bool triggeredThisFrame = false; // 本帧内是否已触发
@@ -34,7 +36,14 @@ public class VRButton : MonoBehaviour
     {
         if (other.CompareTag("PlayerHand"))
         {
-            TryInvoke(events);
+            if (ignoreInvokeFlag)
+            {
+                events.Invoke();
+            }
+            else
+            {
+                TryInvoke(events);
+            }
         }
     }
 
