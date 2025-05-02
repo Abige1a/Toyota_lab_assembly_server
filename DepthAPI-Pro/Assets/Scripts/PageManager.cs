@@ -22,6 +22,10 @@ public class PageManager : MonoBehaviour
 
     public void showHintText()
     {
+        if(hint_text == null)
+        {
+            return;
+        }
         hint_text.text = "";
         if (pageIndex < hint_text_list.Count)
         {
